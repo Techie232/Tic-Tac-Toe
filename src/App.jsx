@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
 
@@ -56,19 +55,20 @@ const App = () => {
    }
 
    useEffect(() => {
+      let winnerFound = false;
       // check Game Over condition
       winningWay.forEach((way) => {
-         if ((grid[way[0]] !== "" && grid[way[1]] !== "" && grid[way[2]] !== "") &&
-            (grid[way[0]] === grid[way[1]] && grid[way[1]] === grid[way[2]])) {
+         if ((grid[way[0]] !== "") && (grid[way[0]] === grid[way[1]] && grid[way[1]] === grid[way[2]])) {   
             setWinner(grid[way[0]]);
+            winnerFound = true;
             setNoOfTurns(0);
          }
       })
 
-      if (noOfTurns === 0 && winner === "")
+      if (noOfTurns === 0 && winner === "" && !winnerFound)
          setWinner("TIE");
 
-   }, [turn])
+   }, [grid])
 
    return (
       <div className='w-screen h-screen flex flex-col justify-between'>
